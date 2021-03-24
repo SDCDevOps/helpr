@@ -90,7 +90,7 @@ It's able to return a relevant http status code based on the error.
       returnServiceCallUsingCode(httpStatusCode)
     }
 
-    func stickYourHandInHere(hand string) (stat rstatus.Status) {
+    func stickYourHandInHere(hand string) rstatus.Status {
       if hand == "left" {
         stuff, err := getMysteryStuffFromDatabase(hand)
         if err != nil {
