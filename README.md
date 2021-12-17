@@ -119,3 +119,22 @@ It's able to return a relevant http status code based on the error.
     }
 
 
+---
+## str
+
+**str** is a string utility.
+
+### Usage
+
+    import "github.com/skker/helpr/str"
+
+    func main() {
+      s := "This is My String to Search"
+      substr := "sea"
+
+      if str.CaseInsensitiveSearch() {
+        log.Print("Result is true. This will be printed")
+      } else { 
+        log.Print("Result is false. This will NEVER be printed")
+      }
+    }
