@@ -14,7 +14,7 @@ type DB struct {
 	Db     *mongo.Database
 }
 
-// New - Initialise a new SkDB object. Connection to database.
+// New - Initialise a new object. Connection to database.
 func New(ctx context.Context, dbURI string, dbName string) (db DB, err error) {
 	// Ref: https://docs.microsoft.com/en-us/azure/cosmos-db/create-mongodb-go
 	// Using the SetDirect(true) configuration is important, without which you will get the following connectivity error:
