@@ -1,9 +1,10 @@
 # helpr
-**helpr** is a _not so useful_ helper package in Go.
+**helpr** is a simple utility package in Go.
 
 It contains the following packages:  
 * mgdb  
 * rstatus
+* str
 
 ---
 ## Installation
@@ -17,7 +18,7 @@ Install the dependency in your project.
 
 **mgdb** provides some simple methods to use MongoDB in Go. 
 
-It is created to save you a few lines of codes. Other than that, it's quite useless.
+It is created to save you a few lines of codes. It's not necessary to use it.
 
 ### Usage
 
@@ -132,8 +133,8 @@ It's able to return a relevant http status code based on the error.
       s := "This is My String to Search"
       substr := "sea"
 
-      if str.CaseInsensitiveSearch() {
-        log.Print("Result is true. This will be printed")
+      if str.CaseInsensitiveSearch(s, substr) {
+        log.Print("Result is true. This will be printed") // Will only print this.
       } else { 
         log.Print("Result is false. This will NEVER be printed")
       }
