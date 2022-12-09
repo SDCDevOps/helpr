@@ -11,7 +11,7 @@ It contains the following packages:
 
 Install the dependency in your project.
 
-    go get github.com/skker/helpr
+    go get github.com/SDCDevOps/helpr
 
 ---
 ## mgdb
@@ -22,7 +22,7 @@ It is created to save you a few lines of codes. It's not necessary to use it.
 
 ### Usage
 
-    import "github.com/skker/helpr/mgdb"
+    import "github.com/SDCDevOps/helpr/mgdb"
     
     func myFunc() error {
       // Context with timeout.
@@ -66,7 +66,7 @@ It's able to return a relevant http status code based on the error.
 
 ### Usage
 
-    import "github.com/skker/helpr/rstatus"
+    import "github.com/SDCDevOps/helpr/rstatus"
 
     func main() {
       s := stickYourHandInHere("left")
@@ -127,7 +127,7 @@ It's able to return a relevant http status code based on the error.
 
 ### Usage
 
-    import "github.com/skker/helpr/str"
+    import "github.com/SDCDevOps/helpr/str"
 
     func main() {
       s := "This is My String to Search"
@@ -148,7 +148,7 @@ It's able to return a relevant http status code based on the error.
 
 ### Usage
 
-    import "github.com/skker/helpr/filemgr"
+    import "github.com/SDCDevOps/helpr/filemgr"
 
     func main() {
       content := "This is a test content"
