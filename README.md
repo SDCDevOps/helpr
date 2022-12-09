@@ -139,3 +139,36 @@ It's able to return a relevant http status code based on the error.
         log.Print("Result is false. This will NEVER be printed")
       }
     }
+
+
+---
+## filemgr
+
+**filemgr** is a file utility.
+
+### Usage
+
+    import "github.com/skker/helpr/filemgr"
+
+    func main() {
+      content := "This is a test content"
+      filename := "test.txt"
+
+      // File will be created if it does not exist. 
+      // If file already exist, nothing will happen (content will NOT be written into it).
+      // If you want to write the content into the file if it already exist, just use standard os.Create()
+      err := filemgr.CreateFileIfNotExist(filename, content) 
+      if err != nil {
+        log.Panic(fmt.Sprintf("Error calling CreateFileIfNotExist: %s", err.Error()))
+      }
+      
+      notExist, err := filemgr.FileNotExist(filename) // notExist will be false since file is created earlier.
+      if err != nil {
+        log.Panic(fmt.Sprintf("Error calling FileNotExist: %s", err.Error()))
+      }
+      
+      err = filemgr.DeleteFileIfExist(filename) // File will be deleted.
+      if err != nil {
+        log.Panic(fmt.Sprintf("Error calling DeleteFileIfExist: %s", err.Error()))
+      }
+    }
