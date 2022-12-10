@@ -72,6 +72,18 @@ func TestFilemgr(t *testing.T) {
 
 	assert.Equal(t, content2, string(byteData), "File content should change to content2")
 
+	err = filemgr.AppendFileCreateIfNotExist(filename, content1)
+	if err != nil {
+		t.Fatal("Error calling AppendFileCreateIfNotExist")
+	}
+
+	t.Log("Read file content after calling AppendFileCreateIfNotExist...")
+	byteData, err = os.ReadFile(filename)
+	if err != nil {
+		t.Fatal("Error reading file content")
+	}
+	assert.Equal(t, content2+content1, string(byteData), "File content should be content1 appended to content2")
+
 	err = filemgr.DeleteFileIfExist(filename)
 	if err != nil {
 		t.Fatal("Error calling DeleteFileIfExist")

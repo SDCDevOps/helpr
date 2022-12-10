@@ -47,6 +47,22 @@ func CreateFileIfNotExist(filename string, content string, overwriteIfExist bool
 	return nil
 }
 
+// Append content to file, create the file if it does not exist.
+func AppendFileCreateIfNotExist(filename string, content string) error {
+	// Open file for appending. Create it if it does not exist.
+	file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	if _, err := file.WriteString(content); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // Delete file if exist.
 func DeleteFileIfExist(filename string) error {
 	notExist, err := FileNotExist(filename)

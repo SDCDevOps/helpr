@@ -151,15 +151,21 @@ It's able to return a relevant http status code based on the error.
     import "github.com/SDCDevOps/helpr/filemgr"
 
     func main() {
-      content := "This is a test content"
+      content1 := "This is my CONTENT1"
       filename := "test.txt"
 
       // File will be created if it does not exist. 
-      // If file already exist, nothing will happen (content will NOT be written into it).
-      // If you want to write the content into the file if it already exist, just use standard os.Create()
-      err := filemgr.CreateFileIfNotExist(filename, content) 
+      // If file already exist and overwriteIfExist=false (3rd param), nothing will happen (content will NOT be written into it).
+      // If file already exist and overwriteIfExist=true, file will be truncated and content (2nd param) will be written into it.
+      err := filemgr.CreateFileIfNotExist(filename, content1, true) 
       if err != nil {
         log.Panic(fmt.Sprintf("Error calling CreateFileIfNotExist: %s", err.Error()))
+      }
+
+      content2 := "My CONTENT2"
+      err = filemgr.AppendFileCreateIfNotExist(filename, content2) // content2 will be appended to file.
+      if err != nil {
+        log.Panic(fmt.Sprintf("Error calling AppendFileCreateIfNotExist: %s", err.Error()))
       }
       
       notExist, err := filemgr.FileNotExist(filename) // notExist will be false since file is created earlier.
