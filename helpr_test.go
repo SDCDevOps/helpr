@@ -4,8 +4,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/skker/helpr/filemgr"
-	"github.com/skker/helpr/str"
+	"github.com/SDCDevOps/helpr/filemgr"
+	"github.com/SDCDevOps/helpr/str"
 	"github.com/stretchr/testify/assert"
 )
 
