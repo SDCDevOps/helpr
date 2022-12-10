@@ -178,3 +178,34 @@ It's able to return a relevant http status code based on the error.
         log.Panic(fmt.Sprintf("Error calling DeleteFileIfExist: %s", err.Error()))
       }
     }
+
+
+---
+## filelog
+
+**filelog** is a file logging utility.
+
+### Usage
+
+    import "github.com/SDCDevOps/helpr/filelog"
+
+    func main() {
+      filename := "mylog.log"
+      content1 := "content1 CONTENT1"
+
+      fl := filelog.New(filename) // Initiate object.
+
+      // Calling LogAppend will append to log (with timestamp). If log file does not exist, it will create and log content1.
+      // If log file already exist, it will append content1 to it.
+      err := fl.LogAppend(content1)
+      if err != nil {
+        log.Panic(fmt.Sprintf("Error calling LogAppend: %s", err.Error()))
+      }
+
+      // Calling LogNew will log as new (with timestamp). If log file does not exist, it will create and log content1.
+      // If log file already exist, it will truncate it and then log content1 (thus only content1 will in the log file).
+      err := fl.LogNew(content1)
+      if err != nil {
+        log.Panic(fmt.Sprintf("Error calling LogNew: %s", err.Error()))
+      }
+    }

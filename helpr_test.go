@@ -4,6 +4,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/SDCDevOps/helpr/filelog"
 	"github.com/SDCDevOps/helpr/filemgr"
 	"github.com/SDCDevOps/helpr/str"
 	"github.com/stretchr/testify/assert"
@@ -95,4 +96,65 @@ func TestFilemgr(t *testing.T) {
 	}
 
 	assert.Equal(t, true, notExist, "FileNotExist should return true after calling DeleteFileIfExist")
+}
+
+func TestFilelog(t *testing.T) {
+	t.Log("\n\nTest filelog package...")
+
+	filename := "mylog.log"
+	fl := filelog.New(filename)
+
+	t.Log("Calling LogAppend to log content1...")
+	content1 := "content1 CONTENT1"
+	err := fl.LogAppend(content1)
+	if err != nil {
+		t.Fatal("Error calling LogAppend")
+	}
+
+	t.Log("Reading content in log file after calling LogAppend...")
+	byt, err := os.ReadFile(filename)
+	if err != nil {
+		t.Fatal("Error reading log file after calling LogAppend")
+	}
+
+	assert.Contains(t, string(byt), content1, "Log file should contain content1")
+
+	t.Log("Calling LogNew to log content2...")
+	content2 := "content2 CONTENT2"
+	err = fl.LogNew(content2)
+	if err != nil {
+		t.Fatal("Error calling LogNew")
+	}
+
+	t.Log("Reading content in log file after calling LogNew...")
+	byt, err = os.ReadFile(filename)
+	if err != nil {
+		t.Fatal("Error reading log file after calling LogNew")
+	}
+
+	str := string(byt)
+	assert.Contains(t, str, content2, "Log file should contain content2")
+	assert.NotContains(t, str, content1, "Log file should NO LONGER CONTAIN content1")
+
+	t.Log("Calling LogAppend again to log content1...")
+	err = fl.LogAppend(content1)
+	if err != nil {
+		t.Fatal("Error calling LogAppend")
+	}
+
+	t.Log("Reading content in log file after calling LogAppend again...")
+	byt, err = os.ReadFile(filename)
+	if err != nil {
+		t.Fatal("Error reading log file after calling LogAppend again")
+	}
+
+	str = string(byt)
+	assert.Contains(t, str, content1, "Log file should contain content1")
+	assert.Contains(t, str, content2, "Log file should contain content2")
+
+	// Clean up: removing log file.
+	err = os.Remove(filename)
+	if err != nil {
+		t.Fatal("Error deleting log file")
+	}
 }
