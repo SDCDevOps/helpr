@@ -11,7 +11,7 @@ It contains the following packages:
 
 Install the dependency in your project.
 
-    go get github.com/skker/helpr
+    go get github.com/SDCDevOps/helpr
 
 ---
 ## mgdb
@@ -22,7 +22,7 @@ It is created to save you a few lines of codes. It's not necessary to use it.
 
 ### Usage
 
-    import "github.com/skker/helpr/mgdb"
+    import "github.com/SDCDevOps/helpr/mgdb"
     
     func myFunc() error {
       // Context with timeout.
@@ -66,7 +66,7 @@ It's able to return a relevant http status code based on the error.
 
 ### Usage
 
-    import "github.com/skker/helpr/rstatus"
+    import "github.com/SDCDevOps/helpr/rstatus"
 
     func main() {
       s := stickYourHandInHere("left")
@@ -127,7 +127,7 @@ It's able to return a relevant http status code based on the error.
 
 ### Usage
 
-    import "github.com/skker/helpr/str"
+    import "github.com/SDCDevOps/helpr/str"
 
     func main() {
       s := "This is My String to Search"
@@ -137,5 +137,38 @@ It's able to return a relevant http status code based on the error.
         log.Print("Result is true. This will be printed") // Will only print this.
       } else { 
         log.Print("Result is false. This will NEVER be printed")
+      }
+    }
+
+
+---
+## filemgr
+
+**filemgr** is a file utility.
+
+### Usage
+
+    import "github.com/SDCDevOps/helpr/filemgr"
+
+    func main() {
+      content := "This is a test content"
+      filename := "test.txt"
+
+      // File will be created if it does not exist. 
+      // If file already exist, nothing will happen (content will NOT be written into it).
+      // If you want to write the content into the file if it already exist, just use standard os.Create()
+      err := filemgr.CreateFileIfNotExist(filename, content) 
+      if err != nil {
+        log.Panic(fmt.Sprintf("Error calling CreateFileIfNotExist: %s", err.Error()))
+      }
+      
+      notExist, err := filemgr.FileNotExist(filename) // notExist will be false since file is created earlier.
+      if err != nil {
+        log.Panic(fmt.Sprintf("Error calling FileNotExist: %s", err.Error()))
+      }
+      
+      err = filemgr.DeleteFileIfExist(filename) // File will be deleted.
+      if err != nil {
+        log.Panic(fmt.Sprintf("Error calling DeleteFileIfExist: %s", err.Error()))
       }
     }
