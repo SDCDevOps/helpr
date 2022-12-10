@@ -1,6 +1,7 @@
 package helpr
 
 import (
+	"os"
 	"testing"
 
 	"github.com/skker/helpr/filemgr"
@@ -23,21 +24,53 @@ func TestStr(t *testing.T) {
 }
 
 func TestFilemgr(t *testing.T) {
-	t.Log("\n\nTest str package...")
+	t.Log("\n\nTest filemgr package...")
 
 	filename := "test.txt"
-	content := "test test only..."
-	err := filemgr.CreateFileIfNotExist(filename, content)
+	content1 := "CONTENT1 CONTENT1"
+
+	t.Log("Creating file with content1, overwriting if exist...")
+	err := filemgr.CreateFileIfNotExist(filename, content1, true)
 	if err != nil {
 		t.Fatal("Error calling CreateFileIfNotExist")
 	}
 
+	t.Log("Check that file with content1 exist...")
 	notExist, err := filemgr.FileNotExist(filename)
 	if err != nil {
 		t.Fatal("Error calling FileNotExist")
 	}
 
 	assert.Equal(t, false, notExist, "FileNotExist should return false after creating file")
+
+	t.Log("Creating file with content2, NOT TO OVERWRITE if exist...")
+	content2 := "This is content2 CONTENT2"
+	err = filemgr.CreateFileIfNotExist(filename, content2, false)
+	if err != nil {
+		t.Fatal("Error calling CreateFileIfNotExist")
+	}
+
+	t.Log("Read file content after calling CreateFileIfNotExist with overwriteIfExist=FALSE...")
+	byteData, err := os.ReadFile(filename)
+	if err != nil {
+		t.Fatal("Error reading file content")
+	}
+
+	assert.Equal(t, content1, string(byteData), "File content should still remain as content1")
+
+	t.Log("Creating file with content2, to OVERWRITE if exist...")
+	err = filemgr.CreateFileIfNotExist(filename, content2, true)
+	if err != nil {
+		t.Fatal("Error calling CreateFileIfNotExist")
+	}
+
+	t.Log("Read file content after calling CreateFileIfNotExist with overwriteIfExist=TRUE...")
+	byteData, err = os.ReadFile(filename)
+	if err != nil {
+		t.Fatal("Error reading file content")
+	}
+
+	assert.Equal(t, content2, string(byteData), "File content should change to content2")
 
 	err = filemgr.DeleteFileIfExist(filename)
 	if err != nil {

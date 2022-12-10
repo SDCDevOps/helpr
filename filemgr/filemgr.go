@@ -22,13 +22,14 @@ func FileNotExist(filename string) (bool, error) {
 }
 
 // Create file if file does not exist.
-func CreateFileIfNotExist(filename string, content string) error {
+// If overwriteIfExist = false and file exist, nothing will happen (content will not be written to existing file)
+func CreateFileIfNotExist(filename string, content string, overwriteIfExist bool) error {
 	notExist, err := FileNotExist(filename)
 	if err != nil {
 		return errors.New(fmt.Sprintf("Error checking if file exist: %s", err.Error()))
 	}
 
-	if notExist {
+	if notExist || overwriteIfExist {
 		file, err := os.Create(filename)
 		if err != nil {
 			return errors.New(fmt.Sprintf("Error creating file: %s", err.Error()))
