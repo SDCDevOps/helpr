@@ -55,6 +55,12 @@ func (lgr *Logger) LogAppend(content string) error {
 	return nil
 }
 
+// Append content to file and panic/exit program.
+func (lgr *Logger) LogAppendPanic(content string) {
+	lgr.LogAppend(content)
+	panic(content)
+}
+
 // Log content with timestamp.
 func log(file *os.File, content string) error {
 	currTime := time.Now()

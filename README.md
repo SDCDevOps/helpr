@@ -208,4 +208,8 @@ It's able to return a relevant http status code based on the error.
       if err != nil {
         log.Panic(fmt.Sprintf("Error calling LogNew: %s", err.Error()))
       }
+
+      // Calling LogAppendPanic will append to log (with timestamp) and "panic" (exit) program. If log file does not exist, it will create and log content1.
+      // If log file already exist, it will append content1 to it.
+      fl.LogAppendPanic(content1)
     }
