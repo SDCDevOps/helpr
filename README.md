@@ -5,6 +5,9 @@ It contains the following packages:
 * mgdb  
 * rstatus
 * str
+* filemgr
+* filelog
+* crypt
 
 ---
 ## Installation
@@ -213,3 +216,33 @@ It's able to return a relevant http status code based on the error.
       // If log file already exist, it will append content1 to it.
       fl.LogAppendPanic(content1)
     }
+
+
+---
+## crypt
+
+**crypt** is a crypto utility.
+
+### Usage
+
+    import "github.com/SDCDevOps/helpr/crypt"
+
+    func main() {
+      // AES encryption key must be 32 bytes.
+      aesKey := []byte("abcdefghij1234567890abcdefghij12") 
+
+      // AES encryption.
+      err = crypt.EncryptAes(aesKey, "mySourceFile.txt", "myEncryptedFile.bin")
+      if err != nil {
+        log.Panic("Error encrypting file")
+      }
+
+      // AES decryption.
+      err = crypt.DecryptAes(aesKey, "myEncryptedFile.bin", "myDescryptedFile.txt")
+      if err != nil {
+        log.Panic("Error decrypting file")
+      }
+    } 
+
+
+---
