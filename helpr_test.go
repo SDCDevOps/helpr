@@ -103,11 +103,14 @@ func TestFilelog(t *testing.T) {
 	t.Log("\n\nTest filelog package...")
 
 	filename := "mylog.log"
-	fl := filelog.New(filename)
+	fl, err := filelog.New(filename, 0)
+	if err != nil {
+		t.Fatal("Error initiating filelog")
+	}
 
 	t.Log("Calling LogAppend to log content1...")
 	content1 := "content1 CONTENT1"
-	err := fl.LogAppend(content1)
+	err = fl.LogAppend(content1)
 	if err != nil {
 		t.Fatal("Error calling LogAppend")
 	}

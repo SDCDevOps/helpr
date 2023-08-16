@@ -196,7 +196,12 @@ It's able to return a relevant http status code based on the error.
       filename := "mylog.log"
       content1 := "content1 CONTENT1"
 
-      fl := filelog.New(filename) // Initiate object.
+      // Initiate object with filename. 
+      // 0 (2nd param: max file size) indicates no need to check if log file already exist and if >= the size.
+      // If 2nd param is more than 0, it will check if file already exist, and if its size is >= this value.
+      // If both are true, it will then rename existing file to <filename>-<timestamp>, while creating a new <filename>
+      // when calling the next LogAppend.
+      fl := filelog.New(filename, 0) 
 
       // Calling LogAppend will append to log (with timestamp). If log file does not exist, it will create and log content1.
       // If log file already exist, it will append content1 to it.
